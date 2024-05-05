@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "watchlist_app",
     "rest_framework",
+    'rest_framework.authtoken',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +131,32 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #         'rest_framework.permissions.IsAuthenticated',
 #     ]
 # }
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ],
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'rest_framework.authentication.BasicAuthentication',
+    # ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        #'rest_framework_simplejwt.authentication.JWTAuthentication'
+    ],
+    # 'DEFAULT_THROTTLE_CLASSES': [
+    #     'rest_framework.throttling.AnonRateThrottle',
+    #     'rest_framework.throttling.UserRateThrottle'
+    # ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '5/day',
+        'user': '8/day',
+        'review-create': '5/day',
+        'review-list': '10/day',
+        'review-detail': '3/day'
+    },
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    # 'PAGE_SIZE': 10
+}
